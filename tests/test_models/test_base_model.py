@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """ """
-import time
 from models.base_model import BaseModel
 import unittest
 import datetime
@@ -25,7 +24,7 @@ class test_basemodel(unittest.TestCase):
     def tearDown(self):
         try:
             os.remove('file.json')
-        except BaseException:
+        except:
             pass
 
     def test_default(self):
@@ -75,6 +74,12 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = self.value(**n)
 
+    def test_kwargs_one(self):
+        """ """
+        n = {'Name': 'test'}
+        with self.assertRaises(KeyError):
+            new = self.value(**n)
+
     def test_id(self):
         """ """
         new = self.value()
@@ -91,6 +96,4 @@ class test_basemodel(unittest.TestCase):
         self.assertEqual(type(new.updated_at), datetime.datetime)
         n = new.to_dict()
         new = BaseModel(**n)
-        time.sleep(0.01)
-        new.save()
         self.assertFalse(new.created_at == new.updated_at)
