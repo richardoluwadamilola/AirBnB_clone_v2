@@ -8,7 +8,7 @@ import os
 from models.city import City
 
 
-class State(BaseModel):
+class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
     name = Column('name', String(128), nullable=False)
@@ -22,4 +22,3 @@ class State(BaseModel):
 
 
 if os.getenv("HBNB_TYPE_STORAGE") == "db":
-    City.state = relationship('State', back_populates="cities")
